@@ -1,4 +1,4 @@
-    /* Purpose of This Smart contract :
+     /* Purpose of This Smart contract :
      - Create a new member with its own informations (name + antenna + walletAddress)
      - Only the admin can initiate a new member
      - Get informations from members
@@ -15,11 +15,11 @@ contract NDA_KS{
      address owner = msg.sender;
      
      modifier onlyOwner{
-     require ( msg.sender == 0x866F1571052b617Ce6ac0a29E02F0E9198b5eE58 );
+     require ( msg.sender == owner );
      _;
      }    
 
-  struct Person {
+      struct Person {
       string name;
       string antenna;
       address walletAddress;
@@ -29,8 +29,7 @@ contract NDA_KS{
 
 
      function createPerson(string memory name, string memory antenna, address walletAddress) public {
-            address creator = 0x866F1571052b617Ce6ac0a29E02F0E9198b5eE58;
-            owner = msg.sender;
+        address creator = owner;
         Person memory newPerson;
         newPerson.name = name;
         newPerson.antenna = antenna;
@@ -41,9 +40,8 @@ contract NDA_KS{
      }
      
      
-     
      function getPerson() public view returns(string memory name, string memory antenna, address walletAddress){
-        address creator = 0x866F1571052b617Ce6ac0a29E02F0E9198b5eE58;
+        address creator = owner;
         return (people[creator].name, people[creator].antenna, people[creator].walletAddress);
      }
      
